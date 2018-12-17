@@ -5,78 +5,8 @@ import java.util.Comparator;
 
 public class 树链剖分
 {
-    class graph //前向星
-    {
-        int Begin[], to[], Next[], e;
-        void Add(int u, int v)
-        {
-            System.out.println(u+" "+v);
-            to[++e] = v;
-            Next[e] = Begin[u];
-            Begin[u] = e;
-        }
-        graph(int a)
-        {
-            e=0;
-            to=new int[a];
-            Next=new int[a];
-            Begin=new int[a];
-            Arrays.fill(Begin,-1);
-        }
-    }
-    class tree_split
-    {
-        graph p;
-        int dep[],fa[],top[],size1[];
-        int time,dfs_begin[],dfs_end[],dfsn[],len;
-        tree_split(int n,int m)
-        {
-            dep=new int[n];
-            fa=new int[n];
-            top=new int[n];
-            size1=new int[n];
-            p=new graph(m);
-            time=0;
-            len=0;
-            dfs_begin=new int[n];
-            dfsn=new int[n];
-            dfs_end=new int[n];
-        }
-        void dfs(int u)
-        {
-            int maxx=0,son=0,x=len+1;
-            dfs_begin[++len]=++time;
-            dfsn[len]=u;
-            top[u]=u;
-            size1[u]=1;
-            for(int i=p.Begin[u];i!=-1;i=p.Next[i])
-            {
-                if(p.to[i]==fa[u])
-                    continue;
-                fa[p.to[i]]=u;
-                dep[p.to[i]]=dep[u]+1;
-                dfs(p.to[i]);
-                size1[u]+=size1[p.to[i]];
-                if(size1[p.to[i]]>maxx)
-                {
-                    son=p.to[i];
-                    maxx = size1[son];
-                }
-            }
-            if(son!=0)
-                top[son]=u;
-            dfs_end[x]=time;
-        }
-        int find(int u)
-        {
-            return top[u] = top[u] == u ? u : find(top[u]);
-        }
-        int LCA(int u, int v) {
-            if (find(u) != find(v))
-                return dep[top[u]] > dep[top[v]] ? LCA(fa[top[u]], v) : LCA(u, fa[top[v]]);
-            else return dep[u] > dep[v] ? v : u;
-        }
-    }
+
+    /*
     class virtual_tree
     {
         graph vir;
@@ -102,7 +32,7 @@ public class 树链剖分
         int dp(int x)
         {
             return 1;
-        /*int ans=0;
+        int ans=0;
         for(int i=vir.Begin[x];i!=-1;i=vir.Next[i])
         {
             System.out.println(vir.to[i]);
@@ -112,7 +42,7 @@ public class 树链剖分
         }
         ans=a[x]*b[x]*step[x];
         return ans;
-        */
+
         }
         void insert(int x)
         {
@@ -166,4 +96,5 @@ public class 树链剖分
             }
         }
     }
+    */
 }
