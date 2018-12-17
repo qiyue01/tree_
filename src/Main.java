@@ -1,4 +1,3 @@
-import javafx.util.Pair;
 
 import java.io.*;
 import java.util.*;
@@ -9,52 +8,7 @@ public class Main
     public static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
     public static void main(String[] args)
     {
-        int n,m,q,u,v,q1,q2,q3;
-        String flag;
-        while(in.hasNext())
-        {
-            n=in.nextInt();
-            m=in.nextInt();
-            q=in.nextInt();
-            tree_split ts=new tree_split(n+2,2*n+2);
-            for(int i=1;i<=n;++i)
-                ts.add_weight(i,in.nextInt());
-            for(int i=0;i<m;++i)
-            {
-                u=in.nextInt();
-                v=in.nextInt();
-                ts.add_edge(u,v);
-                ts.add_edge(v,u);
-            }
-            ts.init(1);
-            tree_array1 query=new tree_array1(n);
-            for(int i=1;i<=n;++i)
-                query.a[i]=ts.new_weight[i];
-            query.init();
-            for(int i=0;i<q;++i)
-            {
-                flag=in.next();
-                if(flag.equals("I"))
-                {
-                    q1=in.nextInt();
-                    q2=in.nextInt();
-                    q3=in.nextInt();
-                    ts.query(query,q1,q2,q3);
-                }
-                else if(flag.equals("Q"))
-                {
-                    q1=in.nextInt();
-                    out.println(query.range_ask(ts.id[q1],ts.id[q1]));
-                }
-                else
-                {
-                    q1=in.nextInt();
-                    q2=in.nextInt();
-                    q3=in.nextInt();
-                    ts.query(query,q1,q2,-q3);
-                }
-            }
-        }
+        
         out.flush();
         out.close();
     }
@@ -109,6 +63,7 @@ class tree_split
         if(dep[x]>dep[y]){ int mid=x;x=y;y=mid;}
         p.range_add(id[x],id[y],k);
     }
+
     tree_split(int n,int m)
     {
         dep=new int[n+3];
@@ -130,7 +85,7 @@ class tree_split
     {
         dep[root]=0;
         dfs1(root,0);
-        dfs2(root,0);
+        dfs2(root,root);
     }
     void add_weight(int i,int w)
     {
