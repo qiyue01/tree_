@@ -8,12 +8,13 @@ public class Main
     public static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
     public static void main(String[] args)
     {
-        
+       
         out.flush();
         out.close();
     }
 
 }
+
 class graph_list
 {
     LinkedList<Integer> edge[];
@@ -25,7 +26,7 @@ class graph_list
     {
         edge=new LinkedList[n];
         for(int i=0;i<n;++i)
-            edge[i]=new LinkedList<>();
+            edge[i]=new LinkedList<Integer>();
     }
 }
 class graph //前向星
@@ -52,16 +53,31 @@ class tree_split
     graph p;
     int dep[],fa[],top[],size1[],son[],id[],weight[],new_weight[];
     int len;
-    void query(tree_array1 p,int x,int y,int k) //区间加值 query具体看题目写
+    void query(tree_array1 p,int x,int y,int k) //区间加值 query具体看题目写 输入原树编号
     {
         while(top[x]!=top[y])
         {
             if(dep[top[x]]<dep[top[y]]){ int mid=x;x=y;y=mid;}
             p.range_add(id[top[x]],id[x],k);
             x=fa[top[x]];
+
         }
         if(dep[x]>dep[y]){ int mid=x;x=y;y=mid;}
+
         p.range_add(id[x],id[y],k);
+    }
+    long query2(tree_array1 p,int x,int y) //区间询问 query具体看题目写 输入原树编号
+    {
+        long ans=0;
+        while(top[x]!=top[y])
+        {
+            if(dep[top[x]]<dep[top[y]]){ int mid=x;x=y;y=mid;}
+            ans+=p.range_ask(id[top[x]],id[x]);
+            x=fa[top[x]];
+        }
+        if(dep[x]>dep[y]){ int mid=x;x=y;y=mid;}
+        ans+=p.range_ask(id[x],id[y]);
+        return ans;
     }
 
     tree_split(int n,int m)
@@ -84,7 +100,7 @@ class tree_split
     void init(int root)
     {
         dep[root]=0;
-        dfs1(root,0);
+        dfs1(root,root);
         dfs2(root,root);
     }
     void add_weight(int i,int w)
