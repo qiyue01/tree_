@@ -1,20 +1,17 @@
 
 import java.io.*;
 import java.util.*;
-
 public class Main
 {
     public static InputReader in = new InputReader(System.in);
     public static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
-    public static void main(String[] args)
-    {
-       
+    public static void main(String[] args) {
+
         out.flush();
         out.close();
     }
 
 }
-
 class graph_list
 {
     LinkedList<Integer> edge[];
@@ -60,10 +57,8 @@ class tree_split
             if(dep[top[x]]<dep[top[y]]){ int mid=x;x=y;y=mid;}
             p.range_add(id[top[x]],id[x],k);
             x=fa[top[x]];
-
         }
         if(dep[x]>dep[y]){ int mid=x;x=y;y=mid;}
-
         p.range_add(id[x],id[y],k);
     }
     long query2(tree_array1 p,int x,int y) //区间询问 query具体看题目写 输入原树编号
@@ -212,9 +207,6 @@ class tree_array1  //区间修改 + 区间和
         return ask(r) - ask(l - 1)+a[r]-a[l-1];
     }
 }
-
-
-
 class InputReader{
     private final static int BUF_SZ = 65536;
     BufferedReader in;
